@@ -21,13 +21,13 @@ namespace KeyTesting
         const char separator = '-';
         const wchar_t separatorWide = '-';
 
-        KeyConfigurator<> configuration(min, max, separator);
+        KeyConfigurator configuration(min, max, separator);
 
         ASSERT_TRUE(configuration.getMinLength() == min);
         ASSERT_TRUE(configuration.getMaxLength() == max);
         ASSERT_TRUE(configuration.getSeparator() == separator);
 
-        KeyConfigurator<wchar_t> configurationWide(min, max, separatorWide);
+        KeyConfiguratorWide configurationWide(min, max, separatorWide);
 
         ASSERT_TRUE(configurationWide.getMinLength() == min);
         ASSERT_TRUE(configurationWide.getMaxLength() == max);
