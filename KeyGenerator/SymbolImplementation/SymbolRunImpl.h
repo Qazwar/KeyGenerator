@@ -20,11 +20,15 @@ namespace SymbolImplementation
     class SymbolRunImpl
     {
     public:
+        SymbolRunImpl() = default;
+
         SymbolRunImpl(const std::basic_string<Character> &data) :
             run(data),
             prevSymbol(nullptr)
         {
         }
+
+        SymbolRunImpl(const SymbolRunImpl<Character> &value) = default;
 
         ~SymbolRunImpl()
         {
@@ -35,19 +39,29 @@ namespace SymbolImplementation
             this->prevSymbol.reset(new SymbolRunImpl<Character>(nextData));
         }
 
-        SymbolRunImpl<Character>* getPreviousSymbol()
+        SymbolRunImpl<Character>* getPreviousSymbol() const
         {
             return this->prevSymbol.get();
         }
 
-        bool HasPreviousSymbol()
+        bool HasPreviousSymbol() const
         {
             return this->prevSymbol.get() != nullptr;
         }
 
-        operator const Character*()
+        void operator =(const SymbolRunImpl<Character> &value)
+        {
+            this->run = value.run;
+        }
+
+        operator const Character*() const
         {
             return this->run.c_str();
+        }
+
+        bool operator ==(const SymbolRunImpl<Character> &value) const
+        {
+            return this->run == value.run;
         }
 
     private:
