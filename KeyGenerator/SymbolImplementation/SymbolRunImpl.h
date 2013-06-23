@@ -11,14 +11,20 @@
 #include <string>
 #include <memory>
 
+#include "../RuleMakerImpl/RuleMakerImpl.h"
+
 namespace InnerImplementation
 {
+
 namespace SymbolImplementation
 {
 
     template<typename Character>
     class SymbolRunImpl
     {
+    private:
+        typedef InnerImplementation::RuleMakerImpl<Character> Rules;
+
     public:
         SymbolRunImpl() = default;
 
@@ -77,6 +83,50 @@ namespace SymbolImplementation
         bool operator ==(const SymbolRunImpl<Character> &value) const
         {
             return this->run == value.run;
+        }
+
+        void operator ++()
+        {
+            const SymbolConfiguratorImpl<Character> *config = Rules::getSymbolRule();
+
+            if (run.compare(config->getEndSymbol()) == 0)
+            {
+                run = config->getStartSymbol();
+                if (HasPreviousSymbol())
+                {
+                    ++(*prevSymbol);
+                }
+                else
+                {
+                    this->setPreviousSymbol(config->getStartSymbol());
+                }
+            }
+            else
+            {
+                std::basic_string<Character> terminate(config->getTerminalCharacters());
+                std::basic_string<Character> wrong(config->getWrongCharacters());
+
+                bool end = false;
+                size_t rIndex = run.size()-1;
+                typename std::basic_string<Character>::reverse_iterator runIter = run.rbegin();
+                while (!end)
+                {
+                    if (std::find(std::begin(terminate), std::end(terminate), *runIter) != std::end(terminate))
+                    {
+                        *runIter = *(std::begin(config->getStartSymbol()) + rIndex);
+                        ++runIter;
+                    }
+                    else
+                    {
+                        do
+                        {
+                            ++(*runIter);
+                        }
+                        while(std::find(std::begin(wrong), std::end(wrong), *runIter) != std::end(wrong));
+                        end = true;
+                    }
+                }
+            }
         }
 
     private:
