@@ -20,6 +20,9 @@ namespace KeyImplementation
     template<typename Character>
     class KeyImpl
     {
+    private:
+        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character> SymbolRun;
+
     public:
         KeyImpl(const std::basic_string<Character> &keyText) :
             symbolCount(0)
@@ -54,14 +57,17 @@ namespace KeyImplementation
             return symbolCount;
         }
 
+        SymbolRun * getLastSymbol() const
+        {
+            return this->lastSymbol.get();
+        }
+
         operator const Character*() const
         {
             return this->text.c_str();
         }
 
     private:
-
-        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character> SymbolRun;
         std::unique_ptr<SymbolRun> lastSymbol;
 
         std::basic_string<Character> text;
