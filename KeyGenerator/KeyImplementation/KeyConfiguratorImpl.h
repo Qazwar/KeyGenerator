@@ -8,6 +8,7 @@
 #ifndef KEYCONFIGURATORIMPL_H_
 #define KEYCONFIGURATORIMPL_H_
 
+#include <cstdlib>
 #include <cassert>
 
 namespace InnerImplementation
@@ -28,7 +29,7 @@ namespace KeyImplementation
          * @param maxLength Maximim symbols in key.
          * @param separator Separate character between symbols in key.
          */
-        KeyConfiguratorImpl(int minLength, int maxLength, const Character &separator) :
+        KeyConfiguratorImpl(size_t minLength, size_t maxLength, const Character &separator) :
             minLength(minLength),
             maxLength(maxLength),
             separator(separator)
@@ -39,7 +40,7 @@ namespace KeyImplementation
         /**
          * Gets minimum symbols set for key.
          */
-        int getMinLength() const
+        size_t getMinLength() const
         {
             return minLength;
         }
@@ -47,7 +48,7 @@ namespace KeyImplementation
         /**
          * Gets maximum symbols set for key.
          */
-        int getMaxLength() const
+        size_t getMaxLength() const
         {
             return maxLength;
         }
@@ -61,9 +62,9 @@ namespace KeyImplementation
         }
 
     private:
-        int minLength;
+        size_t minLength;
 
-        int maxLength;
+        size_t maxLength;
 
         Character separator;
     };
