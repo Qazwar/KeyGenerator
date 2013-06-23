@@ -44,6 +44,11 @@ namespace SymbolImplementation
             return startSymbol;
         }
 
+        std::basic_string<Character> getFirstSymbolKey() const
+        {
+            return std::basic_string<Character>(startSymbol.getBegin(), startSymbol.getEnd());
+        }
+
         void setSymbolLength(size_t symbolLength)
         {
             this->symbolLength = symbolLength;
