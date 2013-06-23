@@ -12,6 +12,7 @@
 #include <algorithm>
 
 #include <RuleMaker.h>
+#include "SymbolRun.h"
 
 namespace InnerImplementation
 {

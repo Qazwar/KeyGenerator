@@ -10,7 +10,7 @@
 
 #include <gtest/gtest.h>
 
-#include <SymbolImplementation/SymbolConfigurator.h>
+#include <RuleMaker.h>
 
 namespace SymbolTesting
 {
@@ -22,13 +22,13 @@ namespace SymbolTesting
 
     public:
         const size_t symbolLength;
-        const InnerImplementation::SymbolImplementation::SymbolRun runStart;
-        const InnerImplementation::SymbolImplementation::SymbolRun runEnd;
+        const std::string runStart;
+        const std::string runEnd;
         const std::string terminal;
         const std::string wrong;
 
-        const InnerImplementation::SymbolImplementation::SymbolRunWide runStartWide;
-        const InnerImplementation::SymbolImplementation::SymbolRunWide runEndWide;
+        const std::wstring runStartWide;
+        const std::wstring runEndWide;
         const std::wstring terminalWide;
         const std::wstring wrongWide;
     };

@@ -5,8 +5,6 @@
  *      Author: grad
  */
 
-#include <RuleMaker.h>
-
 #include "SymbolConfiguratorTests.h"
 
 #include <memory>

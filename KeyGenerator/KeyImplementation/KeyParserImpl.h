@@ -12,8 +12,8 @@
 #include <ios>
 #include <cassert>
 
-#include <SymbolImplementation/SymbolRunImpl.h>
 #include <RuleMaker.h>
+#include <SymbolImplementation/SymbolRunImpl.h>
 
 #include "KeyConfiguratorImpl.h"
 

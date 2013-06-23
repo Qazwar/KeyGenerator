@@ -8,7 +8,7 @@
 #ifndef SYMBOLCONFIGURATORIMPL_H_
 #define SYMBOLCONFIGURATORIMPL_H_
 
-#include "SymbolRun.h"
+#include <string>
 
 namespace InnerImplementation
 {
@@ -24,29 +24,29 @@ namespace SymbolImplementation
         {
         }
 
-        void setEndSymbol(const SymbolRunImpl<Character>& endSymbol)
+        void setEndSymbol(const std::basic_string<Character>& endSymbol)
         {
             this->endSymbol = endSymbol;
         }
 
-        const SymbolRunImpl<Character>& getEndSymbol() const
+        const std::basic_string<Character>& getEndSymbol() const
         {
             return endSymbol;
         }
 
-        void setStartSymbol(const SymbolRunImpl<Character>& startSymbol)
+        void setStartSymbol(const std::basic_string<Character>& startSymbol)
         {
             this->startSymbol = startSymbol;
         }
 
-        const SymbolRunImpl<Character>& getStartSymbol() const
+        const std::basic_string<Character>& getStartSymbol() const
         {
             return startSymbol;
         }
 
         std::basic_string<Character> getFirstSymbolKey() const
         {
-            return std::basic_string<Character>(startSymbol.getBegin(), startSymbol.getEnd());
+            return startSymbol;
         }
 
         void setSymbolLength(size_t symbolLength)
@@ -82,9 +82,9 @@ namespace SymbolImplementation
     private:
         size_t symbolLength;
 
-        SymbolRunImpl<Character> startSymbol;
+        std::basic_string<Character> startSymbol;
 
-        SymbolRunImpl<Character> endSymbol;
+        std::basic_string<Character> endSymbol;
 
         std::basic_string<Character> terminalCharacters;
 
