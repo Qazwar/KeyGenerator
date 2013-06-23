@@ -44,12 +44,12 @@ namespace SymbolImplementation
             return startSymbol;
         }
 
-        void setSymbolLength(int symbolLength)
+        void setSymbolLength(size_t symbolLength)
         {
             this->symbolLength = symbolLength;
         }
 
-        int getSymbolLength() const
+        size_t getSymbolLength() const
         {
             return symbolLength;
         }
@@ -75,7 +75,7 @@ namespace SymbolImplementation
         }
 
     private:
-        int symbolLength;
+        size_t symbolLength;
 
         SymbolRunImpl<Character> startSymbol;
 

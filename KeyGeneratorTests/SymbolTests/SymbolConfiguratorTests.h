@@ -21,7 +21,7 @@ namespace SymbolTesting
         SymbolConfiguratorTests();
 
     public:
-        const int symbolLength;
+        const size_t symbolLength;
         const InnerImplementation::SymbolImplementation::SymbolRun runStart;
         const InnerImplementation::SymbolImplementation::SymbolRun runEnd;
         const std::string terminal;

@@ -39,6 +39,11 @@ namespace SymbolImplementation
             this->prevSymbol.reset(new SymbolRunImpl<Character>(nextData));
         }
 
+        size_t getSymbolLength() const
+        {
+            return this->run.size();
+        }
+
         SymbolRunImpl<Character>* getPreviousSymbol() const
         {
             return this->prevSymbol.get();
