@@ -16,8 +16,8 @@ namespace KeyTesting
 
     TEST_F(KeyConfiguratorTests, create_keyconfigurator_and_check_fields)
     {
-        const int min = 1;
-        const int max = 10;
+        const size_t min = 1;
+        const size_t max = 10;
         const char separator = '-';
         const wchar_t separatorWide = '-';
 

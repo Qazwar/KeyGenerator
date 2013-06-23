@@ -5,10 +5,13 @@
  *      Author: grad
  */
 
+#include <RuleMaker.h>
+
 #include "SymbolConfiguratorTests.h"
 
 #include <memory>
 
+using namespace InnerImplementation;
 using namespace InnerImplementation::SymbolImplementation;
 
 namespace SymbolTesting
