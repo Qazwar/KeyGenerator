@@ -54,6 +54,16 @@ namespace SymbolImplementation
             return this->prevSymbol.get() != nullptr;
         }
 
+        inline typename std::basic_string<Character>::const_iterator getBegin() const
+        {
+            return std::begin(this->run);
+        }
+
+        inline typename std::basic_string<Character>::const_iterator getEnd() const
+        {
+            return std::end(this->run);
+        }
+
         void operator =(const SymbolRunImpl<Character> &value)
         {
             this->run = value.run;
