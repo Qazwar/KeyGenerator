@@ -11,7 +11,7 @@
 #include <memory>
 #include <algorithm>
 
-#include "RuleMakerImpl.h"
+#include <RuleMaker.h>
 
 namespace InnerImplementation
 {
