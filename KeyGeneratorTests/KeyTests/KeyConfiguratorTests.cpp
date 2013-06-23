@@ -7,6 +7,7 @@
 
 #include "KeyConfiguratorTests.h"
 
+#include <RuleMaker.h>
 #include <KeyImplementation/KeyConfigurator.h>
 
 using namespace InnerImplementation::KeyImplementation;
@@ -34,4 +35,12 @@ namespace KeyTesting
         ASSERT_TRUE(configurationWide.getSeparator() == separatorWide);
     }
 
+    TEST_F(KeyConfiguratorTests, create_cofigurator_for_task)
+    {
+        const KeyConfigurator* config = InnerImplementation::RuleMaker::getKeyRule();
+
+        ASSERT_EQ(1, config->getMinLength());
+        ASSERT_EQ(10, config->getMaxLength());
+        ASSERT_EQ('-', config->getSeparator());
+    }
 } /* namespace KeyTesting */

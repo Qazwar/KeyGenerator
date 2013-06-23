@@ -8,8 +8,6 @@
 #ifndef KEYIMPL_H_
 #define KEYIMPL_H_
 
-#include <SymbolImplementation/SymbolRun.h>
-
 #include "KeyParserImpl.h"
 
 namespace InnerImplementation
@@ -31,22 +29,7 @@ namespace KeyImplementation
 
             if (lastSymbol)
             {
-                ++this->symbolCount;
-
-                std::unique_ptr<KeyConfiguratorImpl<Character>> config;
-                config.reset(RuleMakerImpl<Character>::MakeKeyRule());
-
-                this->text = *lastSymbol.get();
-
-                SymbolRun* symbolPtr = lastSymbol.get();
-                while(symbolPtr->HasPreviousSymbol())
-                {
-                    ++this->symbolCount;
-                    symbolPtr = symbolPtr->getPreviousSymbol();
-
-                    this->text.insert(std::begin(this->text), config->getSeparator());
-                    this->text.insert(std::begin(this->text), symbolPtr->getBegin(), symbolPtr->getEnd());
-                }
+                this->UpdateKeyText();
 
                 assert(keyText.compare(this->text) == 0 && "parsing text of key is wrong");
             }
@@ -65,6 +48,31 @@ namespace KeyImplementation
         operator const Character*() const
         {
             return this->text.c_str();
+        }
+
+        void operator ++()
+        {
+            ++(*lastSymbol);
+            this->UpdateKeyText();
+        }
+
+    private:
+        void UpdateKeyText()
+        {
+            this->symbolCount = 1;
+            this->text = *lastSymbol.get();
+
+            const KeyConfiguratorImpl<Character>* config = RuleMakerImpl<Character>::getKeyRule();
+
+            SymbolRun* symbolPtr = lastSymbol.get();
+            while(symbolPtr->HasPreviousSymbol())
+            {
+                ++this->symbolCount;
+                symbolPtr = symbolPtr->getPreviousSymbol();
+
+                this->text.insert(std::begin(this->text), config->getSeparator());
+                this->text.insert(std::begin(this->text), symbolPtr->getBegin(), symbolPtr->getEnd());
+            }
         }
 
     private:

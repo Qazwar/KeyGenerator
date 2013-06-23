@@ -8,14 +8,15 @@
 #ifndef RULEMAKER_H_
 #define RULEMAKER_H_
 
-#include <RuleMakerImpl.h>
+#include "RuleMakerImpl/RuleMakerCharImpl.h"
+#include "RuleMakerImpl/RuleMakerWideImpl.h"
 
 namespace InnerImplementation
 {
 
-    typedef RuleMakerImpl<char> RuleMaker;
+    typedef RuleMakerImpl<char, SymbolConfig, KeyConfig> RuleMaker;
 
-    typedef RuleMakerImpl<wchar_t> RuleMakerWide;
+    typedef RuleMakerImpl<wchar_t, SymbolConfigWide, KeyConfigWide> RuleMakerWide;
 
 }
 

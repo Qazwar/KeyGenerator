@@ -5,8 +5,6 @@
  *      Author: grad
  */
 
-#include <RuleMaker.h>
-
 #include "SymbolConfiguratorTests.h"
 
 #include <memory>
@@ -48,8 +46,7 @@ namespace SymbolTesting
 
     TEST_F(SymbolConfiguratorTests, create_cofigurator_for_task)
     {
-        std::unique_ptr<SymbolConfigurator> config;
-        config.reset(RuleMaker::MakeSymbolRule());
+        const SymbolConfigurator* config = RuleMaker::getSymbolRule();
 
         ASSERT_EQ(config->getSymbolLength(), symbolLength);
         ASSERT_EQ(config->getStartSymbol(), runStart);
@@ -60,8 +57,7 @@ namespace SymbolTesting
 
     TEST_F(SymbolConfiguratorTests, create_wide_cofigurator_for_task)
     {
-        std::unique_ptr<SymbolConfiguratorWide> config;
-        config.reset(RuleMakerWide::MakeSymbolRule());
+        const SymbolConfiguratorWide* config = RuleMakerWide::getSymbolRule();
 
         ASSERT_EQ(config->getSymbolLength(), symbolLength);
         ASSERT_EQ(config->getStartSymbol(), runStartWide);

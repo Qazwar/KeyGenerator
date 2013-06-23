@@ -11,6 +11,7 @@
 #include <RuleMaker.h>
 
 #include <SymbolImplementation/SymbolValidatorImpl.h>
+#include <KeyImplementation/KeyImpl.h>
 
 namespace InnerImplementation
 {
@@ -28,7 +29,7 @@ namespace KeyImplementation
     public:
         KeyValidatorImpl()
         {
-            this->config.reset(RuleMakerImpl<Character>::MakeKeyRule());
+            this->config = RuleMakerImpl<Character>::getKeyRule();
             this->symbolValidator.reset(new SymbolValidator());
         }
 
@@ -72,7 +73,7 @@ namespace KeyImplementation
 
     private:
 
-        std::unique_ptr<KeyConfiguratorImpl<Character>> config;
+        const KeyConfiguratorImpl<Character>* config;
 
         std::unique_ptr<SymbolValidator> symbolValidator;
     };

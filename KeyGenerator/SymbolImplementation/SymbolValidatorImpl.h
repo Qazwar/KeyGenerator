@@ -12,6 +12,7 @@
 #include <algorithm>
 
 #include <RuleMaker.h>
+#include "SymbolRun.h"
 
 namespace InnerImplementation
 {
@@ -23,7 +24,7 @@ namespace SymbolImplementation
     public:
         SymbolValidatorImpl()
         {
-            this->config.reset(RuleMakerImpl<Character>::MakeSymbolRule());
+            this->config = RuleMakerImpl<Character>::getSymbolRule();
         }
 
         bool IsCorrectLenght(const SymbolRunImpl<Character> &symbol) const
@@ -50,7 +51,7 @@ namespace SymbolImplementation
         }
 
     private:
-        std::unique_ptr<SymbolConfiguratorImpl<Character>> config;
+        const SymbolConfiguratorImpl<Character>* config;
     };
 
 } /* namespace SymbolImplementation */

@@ -12,8 +12,8 @@
 #include <ios>
 #include <cassert>
 
+#include <RuleMaker.h>
 #include <SymbolImplementation/SymbolRunImpl.h>
-#include <RuleMakerImpl.h>
 
 #include "KeyConfiguratorImpl.h"
 
@@ -31,8 +31,7 @@ namespace KeyImplementation
     public:
         static SymbolRun* ParseText(const std::basic_string<Character> &text)
         {
-            std::unique_ptr<KeyConfiguratorImpl<Character>> config;
-            config.reset(RuleMakerImpl<Character>::MakeKeyRule());
+            const KeyConfiguratorImpl<Character>* config = RuleMakerImpl<Character>::getKeyRule();
             Character separator = config->getSeparator();
 
             std::vector<std::basic_string<Character>> symbolsText;
