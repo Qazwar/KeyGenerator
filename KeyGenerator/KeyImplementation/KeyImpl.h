@@ -33,8 +33,7 @@ namespace KeyImplementation
             {
                 ++this->symbolCount;
 
-                std::unique_ptr<KeyConfiguratorImpl<Character>> config;
-                config.reset(RuleMakerImpl<Character>::MakeKeyRule());
+                const KeyConfiguratorImpl<Character>* config = RuleMakerImpl<Character>::getKeyRule();
 
                 this->text = *lastSymbol.get();
 
