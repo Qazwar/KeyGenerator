@@ -39,6 +39,11 @@ namespace SymbolImplementation
             this->prevSymbol.reset(new SymbolRunImpl<Character>(nextData));
         }
 
+        size_t getSymbolLength() const
+        {
+            return this->run.size();
+        }
+
         SymbolRunImpl<Character>* getPreviousSymbol() const
         {
             return this->prevSymbol.get();
@@ -47,6 +52,16 @@ namespace SymbolImplementation
         bool HasPreviousSymbol() const
         {
             return this->prevSymbol.get() != nullptr;
+        }
+
+        inline typename std::basic_string<Character>::const_iterator getBegin() const
+        {
+            return std::begin(this->run);
+        }
+
+        inline typename std::basic_string<Character>::const_iterator getEnd() const
+        {
+            return std::end(this->run);
         }
 
         void operator =(const SymbolRunImpl<Character> &value)
