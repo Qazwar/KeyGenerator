@@ -17,19 +17,20 @@ namespace InnerImplementation
 {
 namespace KeyImplementation
 {
-    template<typename Character>
+    template<typename Character,
+             typename TRuleMaker=RuleMakerImpl<Character>>
     class KeyValidatorImpl
     {
     private:
 
-        typedef InnerImplementation::SymbolImplementation::SymbolValidatorImpl<Character> SymbolValidator;
+        typedef InnerImplementation::SymbolImplementation::SymbolValidatorImpl<Character, TRuleMaker> SymbolValidator;
 
-        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character> SymbolRun;
+        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character, TRuleMaker> SymbolRun;
 
     public:
         KeyValidatorImpl()
         {
-            this->config = RuleMakerImpl<Character>::getKeyRule();
+            this->config = TRuleMaker::getKeyRule();
             this->symbolValidator.reset(new SymbolValidator());
         }
 

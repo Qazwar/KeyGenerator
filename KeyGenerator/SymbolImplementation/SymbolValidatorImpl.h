@@ -18,13 +18,14 @@ namespace InnerImplementation
 {
 namespace SymbolImplementation
 {
-    template<typename Character>
+    template<typename Character,
+             typename TRuleMaker=RuleMakerImpl<Character>>
     class SymbolValidatorImpl
     {
     public:
         SymbolValidatorImpl()
         {
-            this->config = RuleMakerImpl<Character>::getSymbolRule();
+            this->config = TRuleMaker::getSymbolRule();
         }
 
         bool IsCorrectLenght(const SymbolRunImpl<Character> &symbol) const
