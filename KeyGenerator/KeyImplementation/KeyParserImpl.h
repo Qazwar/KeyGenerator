@@ -23,6 +23,12 @@ namespace InnerImplementation
 namespace KeyImplementation
 {
 
+    /**
+     * Entity which is using for parsing text.
+     * @tparam Character Type of character in key.
+     * @tparam Type of class with static methods
+     * for getting rules of key and symbol in key construction.
+     */
     template<typename Character,
              typename TRuleMaker=RuleMakerImpl<Character>>
     class KeyParserImpl
@@ -31,11 +37,17 @@ namespace KeyImplementation
         typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character, TRuleMaker> SymbolRun;
 
     public:
+        /**
+         * Parses given text to chain of symbols run in key.
+         * @param text String for parsing.
+         * @returns Raw pointer on last symbol in chain.
+         */
         static SymbolRun* ParseText(const std::basic_string<Character> &text)
         {
             const KeyConfiguratorImpl<Character>* config = TRuleMaker::getKeyRule();
             Character separator = config->getSeparator();
 
+            // Splits string by specified separator character.
             std::vector<std::basic_string<Character>> symbolsText;
             try
             {
@@ -51,6 +63,7 @@ namespace KeyImplementation
                 assert(false && e.what());
             }
 
+            // Generates chain of symbol run. Chain begins with last symbol in key.
             std::unique_ptr<SymbolRun> run(nullptr);
             SymbolRun* runPtr = nullptr;
             std::for_each(symbolsText.rbegin(), symbolsText.rend(), [&](const std::basic_string<Character> &symbolText)

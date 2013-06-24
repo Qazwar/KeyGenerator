@@ -19,6 +19,13 @@
 namespace InnerImplementation
 {
 
+    /**
+     * Entity which provides keys generating.
+     * @tparam Character Type of character in key.
+     * @tparam TRuleMaker Type of class with static methods
+     * for getting rules of key and symbol in key construction.
+     * @tparam TValidator Type of key validator.
+     */
     template<typename Character,
              typename TRuleMaker=RuleMakerImpl<Character>,
              typename TValidator=KeyImplementation::KeyValidatorImpl<Character, TRuleMaker>>
@@ -28,17 +35,37 @@ namespace InnerImplementation
         typedef KeyImplementation::KeyImpl<Character, TRuleMaker> KeyType;
 
     public:
-        KeyGeneratorImpl()
-        {
-        }
+        KeyGeneratorImpl() = default;
 
+        /**
+         * Gets first generated key.
+         * @return string that represents key.
+         */
         std::basic_string<Character> getFirstKey() const
         {
-             const SymbolImplementation::SymbolConfiguratorImpl<Character> * rule = TRuleMaker::getSymbolRule();
+             const SymbolImplementation::SymbolConfiguratorImpl<Character> * ruleSymbol = TRuleMaker::getSymbolRule();
+             const KeyImplementation::KeyConfiguratorImpl<Character> * ruleKey = TRuleMaker::getKeyRule();
 
-             return rule->getFirstSymbolKey();
+             std::basic_string<Character> key;
+
+             for(size_t i = 0; i < ruleKey->getMinLength(); ++i)
+             {
+                 key += ruleSymbol->getStartSymbol();
+                 key.push_back(ruleKey->getSeparator());
+             }
+             key.pop_back();
+
+             return key;
         }
 
+        /**
+         * Generate string as next key after specified string-key.
+         * @param inputKey String with old key.
+         * @return New generated key.
+         * @exception BinaryStudio::EmptyKeyExp when inputKey is empty.
+         * @exception BinaryStudio::WrongKeySizeExp when key has incorrect length.
+         * @exception BinaryStudio::WrongCharacterExp when key has prohibited characters.
+         */
         std::basic_string<Character> GenerateKey(const std::basic_string<Character> &inputKey) const
         {
             if (inputKey.empty())
@@ -46,6 +73,7 @@ namespace InnerImplementation
                 throw BinaryStudio::EmptyKeyExp();
             }
 
+            // Makes inputKey in upper case.
             std::basic_string<Character> keyText(inputKey);
             std::transform(keyText.begin(), keyText.end(),keyText.begin(), ::toupper);
 

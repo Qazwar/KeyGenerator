@@ -17,9 +17,9 @@ namespace KeyImplementation
 {
     /**
      * Entity that contains information about key.
-     * template parameter Character is char that used for Key as string.
+     * @tparam Character Type of character in key.
      */
-    template<typename Character = char>
+    template<typename Character>
     class KeyConfiguratorImpl
     {
     public:

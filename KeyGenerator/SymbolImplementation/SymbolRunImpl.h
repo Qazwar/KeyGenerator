@@ -19,6 +19,13 @@ namespace InnerImplementation
 namespace SymbolImplementation
 {
 
+    /**
+     * Entity which contains character set of key symbol.
+     * By symbol run I mean characters between key separator.
+     * @tparam Character Type of character in key.
+     * @tparam Type of class with static methods
+     * for getting rules of key and symbol in key construction.
+     */
     template<typename Character,
              typename TRuleMaker=InnerImplementation::RuleMakerImpl<Character>>
     class SymbolRunImpl
@@ -26,6 +33,10 @@ namespace SymbolImplementation
     public:
         SymbolRunImpl() = default;
 
+        /**
+         * Constructor which saves specified character set in SymbolRun.
+         * @param data String for holding in SymbolRun.
+         */
         SymbolRunImpl(const std::basic_string<Character> &data) :
             run(data),
             prevSymbol(nullptr)
@@ -38,51 +49,87 @@ namespace SymbolImplementation
         {
         }
 
+        /**
+         * Sets SymbolRun before this with specified text.
+         * @param nextData String for previous SymbolRun.
+         */
         void setPreviousSymbol(const std::basic_string<Character> &nextData)
         {
             this->prevSymbol.reset(new SymbolRunImpl<Character, TRuleMaker>(nextData));
         }
 
-        size_t getSymbolLength() const
-        {
-            return this->run.size();
-        }
-
+        /**
+         * Gets SymbolRun before this.
+         * @return Previous symbol.
+         */
         SymbolRunImpl<Character, TRuleMaker>* getPreviousSymbol() const
         {
             return this->prevSymbol.get();
         }
 
+        /**
+         * Gets count of characters in symbol.
+         * @retrun count of characters.
+         */
+        size_t getSymbolLength() const
+        {
+            return this->run.size();
+        }
+
+        /*
+         * Gets whether symbol has previous symbol.
+         * @return true if it has, otherwise false.
+         */
         bool HasPreviousSymbol() const
         {
             return this->prevSymbol.get() != nullptr;
         }
 
+        /**
+         * Gets begin iterator of held character set.
+         * @return begin iterator.
+         */
         inline typename std::basic_string<Character>::const_iterator getBegin() const
         {
             return std::begin(this->run);
         }
 
+        /**
+         * Gets last iterator of held character set.
+         * @return last iterator.
+         */
         inline typename std::basic_string<Character>::const_iterator getEnd() const
         {
             return std::end(this->run);
         }
 
+        /**
+         * Overloads operator =.
+         */
         void operator =(const SymbolRunImpl<Character, TRuleMaker> &value)
         {
             this->run = value.run;
         }
 
+        /**
+         * Overloads operator for casting to "const Character*".
+         */
         operator const Character*() const
         {
             return this->run.c_str();
         }
 
+        /**
+         * Overloads equal operator.
+         */
         bool operator ==(const SymbolRunImpl<Character, TRuleMaker> &value) const
         {
             return this->run == value.run;
         }
 
+        /**
+         * Overloads increment operator for generating key with other character set.
+         */
         void operator ++()
         {
             const SymbolConfiguratorImpl<Character> *config = TRuleMaker::getSymbolRule();

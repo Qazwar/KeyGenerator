@@ -14,7 +14,7 @@ namespace InnerImplementation
 {
 namespace KeyImplementation
 {
-    typedef KeyConfiguratorImpl<> KeyConfigurator;
+    typedef KeyConfiguratorImpl<char> KeyConfigurator;
 
     typedef KeyConfiguratorImpl<wchar_t> KeyConfiguratorWide;
 

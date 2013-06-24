@@ -16,10 +16,16 @@ namespace InnerImplementation
 
     typedef KeyImplementation::KeyConfiguratorWide KeyConfigWide;
 
+    /**
+     * Specified RuleMaker with for wchar_t strings.
+     */
     template<>
     class RuleMakerImpl <wchar_t, SymbolConfigWide, KeyConfigWide>
     {
     public:
+        /**
+         * Gets configuration of symbols.
+         */
         static const SymbolConfigWide* getSymbolRule()
         {
             if (!symbolConfig)
@@ -36,6 +42,9 @@ namespace InnerImplementation
             return symbolConfig.get();
         }
 
+        /**
+         * Gets configuration of keys.
+         */
         static const KeyConfigWide* getKeyRule()
         {
             if (!keyConfig)

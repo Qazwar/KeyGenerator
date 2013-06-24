@@ -18,21 +18,40 @@ namespace InnerImplementation
 {
 namespace SymbolImplementation
 {
+    /**
+     * Entity which validates symbol run representation.
+     * @tparam Character Type of character in symbol.
+     * @tparam Type of class with static methods
+     * for getting rules of key and symbol in key construction.
+     */
     template<typename Character,
              typename TRuleMaker=RuleMakerImpl<Character>>
     class SymbolValidatorImpl
     {
     public:
+        /**
+         * Default constructor for symbol validator.
+         */
         SymbolValidatorImpl()
         {
             this->config = TRuleMaker::getSymbolRule();
         }
 
+        /**
+         * Checks whether length of symbol is correct.
+         * @param symbol symbol for checking.
+         * @return true if symbol is good, false otherwise.
+         */
         bool IsCorrectLenght(const SymbolRunImpl<Character, TRuleMaker> &symbol) const
         {
             return symbol.getSymbolLength() == config->getSymbolLength();
         }
 
+        /**
+         * Checks whether symbol contains correct characters.
+         * @param symbol Symbol for checking.
+         * @return true if symbol is good, false otherwise.
+         */
         bool HasWrongCharacters(const SymbolRunImpl<Character, TRuleMaker> &symbol) const
         {
             bool hasWrong = false;
