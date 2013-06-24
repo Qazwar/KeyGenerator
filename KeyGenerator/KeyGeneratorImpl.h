@@ -21,11 +21,11 @@ namespace InnerImplementation
 
     template<typename Character,
              typename TRuleMaker=RuleMakerImpl<Character>,
-             typename TValidator=KeyImplementation::KeyValidatorImpl<Character>>
+             typename TValidator=KeyImplementation::KeyValidatorImpl<Character, TRuleMaker>>
     class KeyGeneratorImpl
     {
     private:
-        typedef KeyImplementation::KeyImpl<Character> KeyType;
+        typedef KeyImplementation::KeyImpl<Character, TRuleMaker> KeyType;
 
     public:
         KeyGeneratorImpl()

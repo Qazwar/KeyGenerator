@@ -15,17 +15,18 @@ namespace InnerImplementation
 namespace KeyImplementation
 {
 
-    template<typename Character>
+    template<typename Character,
+             typename TRuleMaker=RuleMakerImpl<Character>>
     class KeyImpl
     {
     private:
-        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character> SymbolRun;
+        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character, TRuleMaker> SymbolRun;
 
     public:
         KeyImpl(const std::basic_string<Character> &keyText) :
             symbolCount(0)
         {
-            lastSymbol.reset(KeyParserImpl<Character>::ParseText(keyText));
+            lastSymbol.reset(KeyParserImpl<Character, TRuleMaker>::ParseText(keyText));
 
             if (lastSymbol)
             {
@@ -62,7 +63,7 @@ namespace KeyImplementation
             this->symbolCount = 1;
             this->text = *lastSymbol.get();
 
-            const KeyConfiguratorImpl<Character>* config = RuleMakerImpl<Character>::getKeyRule();
+            const KeyConfiguratorImpl<Character>* config = TRuleMaker::getKeyRule();
 
             SymbolRun* symbolPtr = lastSymbol.get();
             while(symbolPtr->HasPreviousSymbol())

@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <ios>
+#include <sstream>
 #include <cassert>
 
 #include <RuleMaker.h>
@@ -22,16 +23,17 @@ namespace InnerImplementation
 namespace KeyImplementation
 {
 
-    template<typename Character>
+    template<typename Character,
+             typename TRuleMaker=RuleMakerImpl<Character>>
     class KeyParserImpl
     {
     private:
-        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character> SymbolRun;
+        typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character, TRuleMaker> SymbolRun;
 
     public:
         static SymbolRun* ParseText(const std::basic_string<Character> &text)
         {
-            const KeyConfiguratorImpl<Character>* config = RuleMakerImpl<Character>::getKeyRule();
+            const KeyConfiguratorImpl<Character>* config = TRuleMaker::getKeyRule();
             Character separator = config->getSeparator();
 
             std::vector<std::basic_string<Character>> symbolsText;

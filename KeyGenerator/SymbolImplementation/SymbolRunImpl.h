@@ -19,12 +19,10 @@ namespace InnerImplementation
 namespace SymbolImplementation
 {
 
-    template<typename Character>
+    template<typename Character,
+             typename TRuleMaker=InnerImplementation::RuleMakerImpl<Character>>
     class SymbolRunImpl
     {
-    private:
-        typedef InnerImplementation::RuleMakerImpl<Character> Rules;
-
     public:
         SymbolRunImpl() = default;
 
@@ -34,7 +32,7 @@ namespace SymbolImplementation
         {
         }
 
-        SymbolRunImpl(const SymbolRunImpl<Character> &value) = default;
+        SymbolRunImpl(const SymbolRunImpl<Character, TRuleMaker> &value) = default;
 
         ~SymbolRunImpl()
         {
@@ -42,7 +40,7 @@ namespace SymbolImplementation
 
         void setPreviousSymbol(const std::basic_string<Character> &nextData)
         {
-            this->prevSymbol.reset(new SymbolRunImpl<Character>(nextData));
+            this->prevSymbol.reset(new SymbolRunImpl<Character, TRuleMaker>(nextData));
         }
 
         size_t getSymbolLength() const
@@ -50,7 +48,7 @@ namespace SymbolImplementation
             return this->run.size();
         }
 
-        SymbolRunImpl<Character>* getPreviousSymbol() const
+        SymbolRunImpl<Character, TRuleMaker>* getPreviousSymbol() const
         {
             return this->prevSymbol.get();
         }
@@ -70,7 +68,7 @@ namespace SymbolImplementation
             return std::end(this->run);
         }
 
-        void operator =(const SymbolRunImpl<Character> &value)
+        void operator =(const SymbolRunImpl<Character, TRuleMaker> &value)
         {
             this->run = value.run;
         }
@@ -80,14 +78,14 @@ namespace SymbolImplementation
             return this->run.c_str();
         }
 
-        bool operator ==(const SymbolRunImpl<Character> &value) const
+        bool operator ==(const SymbolRunImpl<Character, TRuleMaker> &value) const
         {
             return this->run == value.run;
         }
 
         void operator ++()
         {
-            const SymbolConfiguratorImpl<Character> *config = Rules::getSymbolRule();
+            const SymbolConfiguratorImpl<Character> *config = TRuleMaker::getSymbolRule();
 
             if (run.compare(config->getEndSymbol()) == 0)
             {
@@ -132,7 +130,7 @@ namespace SymbolImplementation
     private:
         std::basic_string<Character> run;
 
-        std::unique_ptr<SymbolRunImpl<Character>> prevSymbol;
+        std::unique_ptr<SymbolRunImpl<Character, TRuleMaker>> prevSymbol;
     };
 
 } /* namespace SymbolImplementation */
