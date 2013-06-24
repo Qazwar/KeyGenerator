@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <ios>
+#include <sstream>
 #include <cassert>
 
 #include <RuleMaker.h>
