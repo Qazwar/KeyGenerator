@@ -25,7 +25,7 @@ namespace InnerImplementation
     class KeyGeneratorImpl
     {
     private:
-        typedef KeyImplementation::KeyImpl<Character> KeyType;
+        typedef KeyImplementation::KeyImpl<Character, TRuleMaker> KeyType;
 
     public:
         KeyGeneratorImpl()

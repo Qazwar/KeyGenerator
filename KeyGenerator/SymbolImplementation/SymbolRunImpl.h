@@ -19,12 +19,10 @@ namespace InnerImplementation
 namespace SymbolImplementation
 {
 
-    template<typename Character>
+    template<typename Character,
+             typename TRuleMaker=InnerImplementation::RuleMakerImpl<Character>>
     class SymbolRunImpl
     {
-    private:
-        typedef InnerImplementation::RuleMakerImpl<Character> Rules;
-
     public:
         SymbolRunImpl() = default;
 
@@ -34,7 +32,7 @@ namespace SymbolImplementation
         {
         }
 
-        SymbolRunImpl(const SymbolRunImpl<Character> &value) = default;
+        SymbolRunImpl(const SymbolRunImpl<Character, TRuleMaker> &value) = default;
 
         ~SymbolRunImpl()
         {
@@ -87,7 +85,7 @@ namespace SymbolImplementation
 
         void operator ++()
         {
-            const SymbolConfiguratorImpl<Character> *config = Rules::getSymbolRule();
+            const SymbolConfiguratorImpl<Character> *config = TRuleMaker::getSymbolRule();
 
             if (run.compare(config->getEndSymbol()) == 0)
             {
