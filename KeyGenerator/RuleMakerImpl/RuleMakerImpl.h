@@ -16,12 +16,21 @@
 namespace InnerImplementation
 {
 
+    /**
+     * Entity which hold configuration for keys and their symbols.
+     * @tparam Character Type of character in key.
+     * @tparam TSymbolConfigurator Type of symbol configuration.
+     * @tparam TKeyConfigurator Type of key configuration.
+     */
     template<typename Character,
              typename TSymbolConfigurator=SymbolImplementation::SymbolConfiguratorImpl<Character>,
              typename TKeyConfigurator=KeyImplementation::KeyConfiguratorImpl<Character>>
     class RuleMakerImpl
     {
     public:
+        /**
+         * Gets configuration of symbols.
+         */
         static const TSymbolConfigurator* getSymbolRule()
         {
             if (!symbolConfig)
@@ -32,6 +41,9 @@ namespace InnerImplementation
             return symbolConfig.get();
         }
 
+        /**
+         * Gets configuration of keys.
+         */
         static const TKeyConfigurator* getKeyRule()
         {
             if (!keyConfig)

@@ -16,10 +16,16 @@ namespace InnerImplementation
 
     typedef KeyImplementation::KeyConfigurator KeyConfig;
 
+    /**
+     * Specified RuleMaker with for char strings.
+     */
     template<>
     class RuleMakerImpl <char, SymbolImplementation::SymbolConfigurator, KeyImplementation::KeyConfigurator>
     {
     public:
+        /**
+         * Gets configuration of symbols.
+         */
         static const SymbolConfig* getSymbolRule()
         {
             if (!symbolConfig)
@@ -36,6 +42,9 @@ namespace InnerImplementation
             return symbolConfig.get();
         }
 
+        /**
+         * Gets configuration of keys.
+         */
         static const KeyConfig* getKeyRule()
         {
             if (!keyConfig)
