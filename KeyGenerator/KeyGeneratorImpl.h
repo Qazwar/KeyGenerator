@@ -43,9 +43,19 @@ namespace InnerImplementation
          */
         std::basic_string<Character> getFirstKey() const
         {
-             const SymbolImplementation::SymbolConfiguratorImpl<Character> * rule = TRuleMaker::getSymbolRule();
+             const SymbolImplementation::SymbolConfiguratorImpl<Character> * ruleSymbol = TRuleMaker::getSymbolRule();
+             const KeyImplementation::KeyConfiguratorImpl<Character> * ruleKey = TRuleMaker::getKeyRule();
 
-             return rule->getFirstSymbolKey();
+             std::basic_string<Character> key;
+
+             for(size_t i = 0; i < ruleKey->getMinLength(); ++i)
+             {
+                 key += ruleSymbol->getStartSymbol();
+                 key.push_back(ruleKey->getSeparator());
+             }
+             key.pop_back();
+
+             return key;
         }
 
         /**
