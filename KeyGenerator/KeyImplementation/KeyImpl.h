@@ -15,6 +15,12 @@ namespace InnerImplementation
 namespace KeyImplementation
 {
 
+    /**
+     * Entity which holds symbol runs of generated key.
+     * @tparam Character Type of character in key.
+     * @tparam Type of class with static methods
+     * for getting rules of key and symbol in key construction.
+     */
     template<typename Character,
              typename TRuleMaker=RuleMakerImpl<Character>>
     class KeyImpl
@@ -23,6 +29,11 @@ namespace KeyImplementation
         typedef InnerImplementation::SymbolImplementation::SymbolRunImpl<Character, TRuleMaker> SymbolRun;
 
     public:
+        /**
+         * Constructor of KeyImpl.
+         * It parses specified text and holds parsed symbols.
+         * @param keyText String which contains representation of key.
+         */
         KeyImpl(const std::basic_string<Character> &keyText) :
             symbolCount(0)
         {
@@ -36,21 +47,36 @@ namespace KeyImplementation
             }
         }
 
+        /**
+         * Gets count of symbol runs in key.
+         * @returns Count of symbols in key.
+         */
         size_t getSymbolCount() const
         {
             return symbolCount;
         }
 
+        /**
+         * Gets last symbol in Key.
+         * @return Pointer on last SymbolRun.
+         */
         SymbolRun * getLastSymbol() const
         {
             return this->lastSymbol.get();
         }
 
+        /**
+         * Overloads operator for casting to "const Character*" type.
+         * @returns String which contents key text.
+         */
         operator const Character*() const
         {
             return this->text.c_str();
         }
 
+        /**
+         * Overloads increment operator for getting next key.
+         */
         void operator ++()
         {
             ++(*lastSymbol);
