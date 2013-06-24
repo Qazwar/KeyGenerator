@@ -34,7 +34,7 @@ namespace KeyImplementation
             this->symbolValidator.reset(new SymbolValidator());
         }
 
-        bool IsCorrectLength(const KeyImpl<Character> &key) const
+        bool IsCorrectLength(const KeyImpl<Character, TRuleMaker> &key) const
         {
             bool isCorrectKeyLen = key.getSymbolCount() >= config->getMinLength() && key.getSymbolCount() <= config->getMaxLength();
             bool isCorrectSymbolLen = this->CheckSymbols(key, [this](const SymbolRun& symbol)
@@ -44,7 +44,7 @@ namespace KeyImplementation
             return isCorrectKeyLen && isCorrectSymbolLen;
         }
 
-        bool IsCorrectSymbols(const KeyImpl<Character> &key) const
+        bool IsCorrectSymbols(const KeyImpl<Character, TRuleMaker> &key) const
         {
             return this->CheckSymbols(key, [this](const SymbolRun& symbol)
                     {
@@ -53,7 +53,7 @@ namespace KeyImplementation
         }
 
     private:
-        bool CheckSymbols(const KeyImpl<Character> &key, const std::function<bool(const SymbolRun&)> &functor) const
+        bool CheckSymbols(const KeyImpl<Character, TRuleMaker> &key, const std::function<bool(const SymbolRun&)> &functor) const
         {
             bool isCorrect = true;
             SymbolRun * symbolPtr = key.getLastSymbol();

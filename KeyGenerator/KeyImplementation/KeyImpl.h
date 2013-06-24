@@ -26,7 +26,7 @@ namespace KeyImplementation
         KeyImpl(const std::basic_string<Character> &keyText) :
             symbolCount(0)
         {
-            lastSymbol.reset(KeyParserImpl<Character>::ParseText(keyText));
+            lastSymbol.reset(KeyParserImpl<Character, TRuleMaker>::ParseText(keyText));
 
             if (lastSymbol)
             {

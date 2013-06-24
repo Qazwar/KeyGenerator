@@ -40,7 +40,7 @@ namespace SymbolImplementation
 
         void setPreviousSymbol(const std::basic_string<Character> &nextData)
         {
-            this->prevSymbol.reset(new SymbolRunImpl<Character>(nextData));
+            this->prevSymbol.reset(new SymbolRunImpl<Character, TRuleMaker>(nextData));
         }
 
         size_t getSymbolLength() const
@@ -48,7 +48,7 @@ namespace SymbolImplementation
             return this->run.size();
         }
 
-        SymbolRunImpl<Character>* getPreviousSymbol() const
+        SymbolRunImpl<Character, TRuleMaker>* getPreviousSymbol() const
         {
             return this->prevSymbol.get();
         }
@@ -68,7 +68,7 @@ namespace SymbolImplementation
             return std::end(this->run);
         }
 
-        void operator =(const SymbolRunImpl<Character> &value)
+        void operator =(const SymbolRunImpl<Character, TRuleMaker> &value)
         {
             this->run = value.run;
         }
@@ -78,7 +78,7 @@ namespace SymbolImplementation
             return this->run.c_str();
         }
 
-        bool operator ==(const SymbolRunImpl<Character> &value) const
+        bool operator ==(const SymbolRunImpl<Character, TRuleMaker> &value) const
         {
             return this->run == value.run;
         }
@@ -130,7 +130,7 @@ namespace SymbolImplementation
     private:
         std::basic_string<Character> run;
 
-        std::unique_ptr<SymbolRunImpl<Character>> prevSymbol;
+        std::unique_ptr<SymbolRunImpl<Character, TRuleMaker>> prevSymbol;
     };
 
 } /* namespace SymbolImplementation */
