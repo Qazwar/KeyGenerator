@@ -159,6 +159,7 @@ namespace SymbolImplementation
                     if (std::find(std::begin(terminate), std::end(terminate), *runIter) != std::end(terminate))
                     {
                         *runIter = *(std::begin(config->getStartSymbol()) + rIndex);
+                        --rIndex;
                         ++runIter;
                     }
                     else
