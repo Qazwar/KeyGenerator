@@ -52,7 +52,7 @@ namespace KeyTesting
     TEST_F(KeyGeneratorTests, throw_exp_on_generating_from_wrong_key)
     {
         std::wstring keyEmpty;
-        std::wstring keyTooLing(L"A1-A2-A3-A4-A5-A6-A7-A8-A9-A1-A2");
+        std::wstring keyTooLong(L"A1-A2-A3-A4-A5-A6-A7-A8-A9-A1-A2");
         std::wstring keyOneCharInSymbol(L"A1-1-A1");
         std::wstring keyTooLongSymbol(L"A1-A11-A1");
         std::wstring keyContainsZero(L"A0");
@@ -67,7 +67,7 @@ namespace KeyTesting
         BinaryStudio::KeyGeneratorWide generator;
 
         ASSERT_THROW(generator.GenerateKey(keyEmpty), BinaryStudio::EmptyKeyExp);
-        ASSERT_THROW(generator.GenerateKey(keyTooLing), BinaryStudio::WrongKeySizeExp);
+        ASSERT_THROW(generator.GenerateKey(keyTooLong), BinaryStudio::WrongKeySizeExp);
         ASSERT_THROW(generator.GenerateKey(keyOneCharInSymbol), BinaryStudio::WrongKeySizeExp);
         ASSERT_THROW(generator.GenerateKey(keyTooLongSymbol), BinaryStudio::WrongKeySizeExp);
         ASSERT_THROW(generator.GenerateKey(keyContainsZero), BinaryStudio::WrongCharacterExp);
